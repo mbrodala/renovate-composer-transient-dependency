@@ -1,0 +1,65 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":disableDependencyDashboard",
+    ":separatePatchReleases"
+  ],
+  "commitMessagePrefix": "[TASK] ",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": " ({{{displayFrom}}} => {{{displayTo}}})",
+  "composerIgnorePlatformReqs": null,
+  "platformAutomerge": true,
+  "rangeStrategy": "update-lockfile",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "devDependencies",
+        "require-dev"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["thecodingmachine/php"],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": ["php"],
+      "enabled": false
+    },
+    {
+      "matchPackagePrefixes": [
+        "phpstan/"
+      ],
+      "matchPackageNames": [
+        "jangregor/phpstan-prophecy",
+        "saschaegerer/phpstan-typo3",
+        "rector/rector",
+        "slevomat/coding-standard"
+      ],
+      "groupName": "PHPStan",
+      "separateMajorMinor": false
+    },
+    {
+      "matchPackagePrefixes": [
+        "typo3/cms-"
+      ],
+      "excludePackageNames": [
+        "typo3/cms-cli",
+        "typo3/cms-composer-installers"
+      ],
+      "groupName": "TYPO3 CMS",
+      "labels": [
+        "typo3"
+      ],
+      "extends": [
+        ":disableMajorUpdates"
+      ]
+    }
+  ]
+}
